@@ -1,98 +1,155 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image,
+  TextInput,
+} from 'react-native';
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
-
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
+export default function Home() {
   return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+    <ScrollView style={styles.container}>
+      <Text style={styles.logo}>NETFILMES</Text>
 
-export default function HomeScreen() {
-  return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
+      <TextInput
+        placeholder="Pesquisar filmes e séries..."
+        placeholderTextColor="#999"
+        style={styles.search}
+      />
 
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
+      <Image
+        source={{
+          uri: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba',
+        }}
+        style={styles.banner}
+      />
 
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
+      <Text style={styles.categoria}>😂 Comédia</Text>
 
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <Image
+          source={{
+            uri: 'https://upload.wikimedia.org/wikipedia/pt/d/de/White_chicks.jpg',
+          }}
+          style={styles.capa}
+        />
+
+        <Image
+          source={{
+            uri: 'https://upload.wikimedia.org/wikipedia/pt/7/77/Grown_Ups_Poster.jpg',
+          }}
+          style={styles.capa}
+        />
+
+        <Image
+          source={{
+            uri: 'https://upload.wikimedia.org/wikipedia/en/0/00/Click_film.jpg',
+          }}
+          style={styles.capa}
+        />
+      </ScrollView>
+
+      <Text style={styles.categoria}>🔥 Ação</Text>
+
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <Image
+          source={{
+            uri: 'https://upload.wikimedia.org/wikipedia/en/0/0c/Fast_Five_Poster.jpg',
+          }}
+          style={styles.capa}
+        />
+
+        <Image
+          source={{
+            uri: 'https://upload.wikimedia.org/wikipedia/en/7/7f/John_Wick_Chapter_4.jpg',
+          }}
+          style={styles.capa}
+        />
+
+        <Image
+          source={{
+            uri: 'https://upload.wikimedia.org/wikipedia/en/1/13/Top_Gun_Maverick_Poster.jpg',
+          }}
+          style={styles.capa}
+        />
+      </ScrollView>
+
+      <Text style={styles.categoria}>😱 Terror</Text>
+
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <Image
+          source={{
+            uri: 'https://upload.wikimedia.org/wikipedia/en/8/88/Conjuring_poster.jpg',
+          }}
+          style={styles.capa}
+        />
+
+        <Image
+          source={{
+            uri: 'https://upload.wikimedia.org/wikipedia/en/1/16/Insidious_poster.jpg',
+          }}
+          style={styles.capa}
+        />
+
+        <Image
+          source={{
+            uri: 'https://upload.wikimedia.org/wikipedia/en/a/a0/Smile_2022_film_poster.png',
+          }}
+          style={styles.capa}
+        />
+      </ScrollView>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
+    backgroundColor: '#141414',
+    paddingTop: 20,
   },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
-  },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
-  },
-  title: {
+
+  logo: {
+    color: '#E50914',
+    fontSize: 34,
+    fontWeight: 'bold',
     textAlign: 'center',
+    marginBottom: 20,
   },
-  code: {
-    textTransform: 'uppercase',
+
+  search: {
+    backgroundColor: '#222',
+    color: '#fff',
+    marginHorizontal: 15,
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    height: 45,
+    marginBottom: 20,
   },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
+
+  banner: {
+    width: '95%',
+    height: 200,
+    borderRadius: 10,
+    alignSelf: 'center',
+    marginBottom: 20,
+  },
+
+  categoria: {
+    color: '#fff',
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginLeft: 15,
+    marginBottom: 10,
+  },
+
+  capa: {
+    width: 120,
+    height: 180,
+    borderRadius: 10,
+    marginLeft: 15,
+    marginBottom: 20,
   },
 });
